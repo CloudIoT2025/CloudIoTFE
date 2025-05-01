@@ -31,7 +31,7 @@ const YoutubePlayer = () => {
       console.log("✅ 영상이 끝났습니다");
       alert("영상이 끝났어요!");
       // 원하는 동작: navigate, 상태 업데이트 등
-      navigate("/");
+      navigate("/loading");
     }
   };
 
@@ -49,7 +49,7 @@ const YoutubePlayer = () => {
 
   return (
       <>
-        <Navbar/>
+        {/*<Navbar/>*/}
         <Content>
           <div className="youtube-player" style={{pointerEvents: 'none'}}>
             <YouTube

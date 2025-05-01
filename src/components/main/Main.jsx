@@ -7,6 +7,7 @@ import RaspberryCodeModal from "../modal/RaspberryCodeModal";
 import { PieChart } from '@mui/x-charts/PieChart';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { Box, Card, CardContent, Typography } from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
 const CaloriesPieChart = () => {
   const containerRef = useRef(null);
@@ -51,34 +52,6 @@ const CaloriesPieChart = () => {
   );
 };
 
-const DailyCaloriesChart = () => {
-  const data = [
-    { date: '4/22', calories: 500 },
-    { date: '4/23', calories: 1100 },
-    { date: '4/24', calories: 1500 },
-    { date: '4/25', calories: 2000 },
-    { date: '4/26', calories: 2500 },
-  ];
-
-  return (
-      <Card sx={{ width: '100%', maxWidth: 600, height: 400 }}>
-        <CardContent>
-          <Typography variant="h6" gutterBottom>
-            일일 누적 칼로리 소모량
-          </Typography>
-          <LineChart
-              xAxis={[{ dataKey: 'date', label: '날짜' }]}
-              series={[{ dataKey: 'calories', label: '누적 소모 칼로리' }]}
-              dataset={data}
-              width={500}
-              height={300}
-          />
-        </CardContent>
-      </Card>
-  );
-};
-
-
 const StartBtn = ({onClick}) => {
   return <>
     <Button className="box startBtn" onClick={onClick}>
@@ -121,6 +94,18 @@ const DashBoard = () => {
   );
 }
 
+const ChartBtn = () =>{
+  const navigate = useNavigate();
+  const setting = () => {
+    // 입력 후 확인
+    navigate('/weekly');
+  }
+
+  return <button onClick={setting}>
+    목표량 설정하기
+  </button>
+}
+
 const TargetBoard = () => {
 
   useEffect(() => {
@@ -129,7 +114,7 @@ const TargetBoard = () => {
 
   return <>
     <div className="box targetBoard">
-      <DailyCaloriesChart />
+      <ChartBtn />
     </div>
   </>
 }
