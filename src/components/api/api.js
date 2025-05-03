@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8080', // 백엔드 엔드포인트 기본 URL
+  baseURL: 'http://ec2-43-201-68-3.ap-northeast-2.compute.amazonaws.com:8080', // 백엔드 엔드포인트 기본 URL
   withCredentials: true, // 쿠키 전송을 허용
 });
 

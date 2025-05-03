@@ -9,7 +9,7 @@ const Navbar = () => {
 
   const handleOAuthLogin = () => {
     console.log('OAuth 로그인 시도 (더미)');
-    window.location.href = 'http://localhost:3000/login';
+    window.location.href = 'http://ec2-43-201-68-3.ap-northeast-2.compute.amazonaws.com:3000/login';
   };
 
   return (
