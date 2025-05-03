@@ -21,6 +21,17 @@ const YoutubePlayer = () => {
     const player = event.target;
     const state = event.data;
 
+    if (state === 1) {
+      try {
+        await axiosInstance.get('/api/exercise/start', {
+          params: { videoId }
+        });
+        console.log("🚀 운동 시작 API 호출 완료");
+      } catch (err) {
+        console.error("❌ 운동 시작 API 호출 실패:", err);
+      }
+    }
+
     if (state === 2) {
       console.log("⛔ 일시정지 시도! 다시 재생함");
       player.playVideo();

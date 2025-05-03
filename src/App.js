@@ -17,7 +17,7 @@ function App() {
       <Routes>
         <Route path = '/' element={<Main/>}/>
         {/*<Route path = '/raspberry-modal' element={<RaspberryCodeModal/>}/>*/}
-        <Route path = '/ex' element={<Select/>}/>
+        <Route path = '/select' element={<Select/>}/>
         <Route path= '/youtube' element={<YoutubePlayer/>}/>
         <Route path= '/loading' element={<LoadingPage/>}/>
         <Route path= '/result' element={<ResultPage/>}/>
