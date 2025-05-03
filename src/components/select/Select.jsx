@@ -42,13 +42,13 @@ export const Select = () =>{
     <Content>
       <div className="select-grid">
         <Ex1Btn onClick = {() => navigate("/youtube", {
-          state: { videoId: "KAqJ6egUB54" } // 💡 여기서 영상 ID 넘김
+          state: { videoId: "W-L_V7S5Zq8" }
         })}>ex1</Ex1Btn>
         <Ex2Btn onClick={() =>navigate("/youtube", {
-          state : {videoId : "Ci6fMdqu_LM"}
+          state : {videoId : "HK5VQq836Tw"}
         })}>ex2</Ex2Btn>
         <Ex3Btn onClick = {() => navigate("/youtube", {
-          state: { videoId: "x_swRYU23zQ" } // 💡 여기서 영상 ID 넘김
+          state: { videoId: "iD0L3TR8Uh8" }
         })}>ex3</Ex3Btn>
       </div>
     </Content>
