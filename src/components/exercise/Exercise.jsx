@@ -4,6 +4,7 @@ import {useRef} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import Navbar from "../nav/Navbar";
 import Content from "../common/Content";
+import axiosInstance from "../api/api";
 
 const YoutubePlayer = () => {
   const location = useLocation();
@@ -16,21 +17,23 @@ const YoutubePlayer = () => {
     event.target.playVideo(); // 자동 재생
   };
 
-  const onPlayerStateChange = (event) => {
+  const onPlayerStateChange = async (event) => {
     const player = event.target;
     const state = event.data;
 
     if (state === 2) {
-      // 2: 일시정지 상태
       console.log("⛔ 일시정지 시도! 다시 재생함");
       player.playVideo();
     }
 
     if (state === 0) {
-      // 0: 영상 종료됨
       console.log("✅ 영상이 끝났습니다");
-      alert("영상이 끝났어요!");
-      // 원하는 동작: navigate, 상태 업데이트 등
+      try {
+        const res = await axiosInstance.post('/api/exercise/end', { videoId });
+        alert(`운동 종료!\n점수: ${res.data.score}\n칼로리: ${res.data.calroies}`);
+      } catch (err) {
+        console.error("운동 종료 알림 실패:", err);
+      }
       navigate("/loading");
     }
   };

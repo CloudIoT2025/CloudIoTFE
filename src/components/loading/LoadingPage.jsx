@@ -1,34 +1,29 @@
 import { useEffect, useState } from 'react';
 import { Box, CircularProgress, Typography, Button } from '@mui/material';
-import ResultPage from "../result/ResultPage";
+import { useNavigate, useLocation } from 'react-router-dom';
 import axiosInstance from "../api/api";
 
-const ResultContainer = () => {
+const LoadingPage = () => {
   const [loading, setLoading] = useState(true);
-  const [result, setResult] = useState(null); // { similarity, burned, goal }
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const videoId = location.state?.videoId || 1; // default videoId
 
   const fetchResult = async () => {
     try {
-      setLoading(true);
       setError(null);
+      setLoading(true);
 
-      // 🔁 실제 API 호출
-      // const response = await axiosInstance.get('/api/result'); // ← 여기를 실제 엔드포인트로 변경
-      // setResult(response.data);
+      const response = await axiosInstance.get('/api/exercise/end', {
+        params: { videoId },
+      });
 
-      // 🔁 1~3초 랜덤 대기
-      const delay = Math.random() * 2000 + 1000;
-      await new Promise((resolve) => setTimeout(resolve, delay));
+      const { score: similarity, calroies: burned, goal } = response.data;
 
-      // ✅ 더미 결과 데이터 생성
-      const fakeResult = {
-        similarity: Math.floor(Math.random() * 21) + 80, // 80~100%
-        burned: Math.floor(Math.random() * 100) + 400,   // 400~500 kcal
-        goal: 600,
-      };
-
-      setResult(fakeResult);
+      // 결과 페이지로 이동하면서 데이터 전달
+      navigate('/result', { state: { similarity, burned, goal } });
     } catch (err) {
       console.error(err);
       setError('운동 결과를 불러오는 데 실패했습니다. 다시 시도해주세요.');
@@ -41,7 +36,6 @@ const ResultContainer = () => {
     fetchResult();
   }, []);
 
-  // 🔄 로딩 상태
   if (loading) {
     return (
         <Box
@@ -57,7 +51,6 @@ const ResultContainer = () => {
     );
   }
 
-  // ⛔ 오류 발생 시
   if (error) {
     return (
         <Box
@@ -78,8 +71,7 @@ const ResultContainer = () => {
     );
   }
 
-  // ✅ 결과 정상 렌더링
-  return <ResultPage />;
+  return null;
 };
 
-export default ResultContainer;
+export default LoadingPage;

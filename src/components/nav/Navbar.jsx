@@ -2,13 +2,14 @@ import React from 'react';
 import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
+import axiosInstance from "../api/api";
 
 const Navbar = () => {
   const navigate = useNavigate();
 
   const handleOAuthLogin = () => {
     console.log('OAuth 로그인 시도 (더미)');
-    // window.location.href = 'https://oauth-provider.com/auth?';
+    window.location.href = 'http://localhost:3000/login';
   };
 
   return (

@@ -8,42 +8,48 @@ import { PieChart } from '@mui/x-charts/PieChart';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { Box, Card, CardContent, Typography } from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import axiosInstance from "../api/api";
 
 const CaloriesPieChart = () => {
   const containerRef = useRef(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-
-  const totalCalories = 2000;
-  const burnedCalories = 600;
-  const remainingCalories = totalCalories - burnedCalories;
+  const [burnedCalories, setBurnedCalories] = useState(0);
+  const [goalCalories, setGoalCalories] = useState(2000);
 
   useEffect(() => {
     if (containerRef.current) {
       const { offsetWidth, offsetHeight } = containerRef.current;
       setDimensions({ width: offsetWidth, height: offsetHeight });
     }
+
+    axiosInstance.get('/api/results/today')
+    .then(res => {
+      setBurnedCalories(res.data.calroies);
+      setGoalCalories(res.data.goal);
+    })
+    .catch(err => console.error("오늘의 칼로리 조회 오류:", err));
   }, []);
+
+  const remainingCalories = Math.max(goalCalories - burnedCalories, 0);
 
   return (
       <div ref={containerRef} style={{ width: '100%', height: '100%' }}>
         {dimensions.width > 0 && dimensions.height > 0 && (
             <PieChart
-                series={[
-                  {
-                    data: [
-                      { id: 0, value: burnedCalories, label: '소모한 칼로리' },
-                      { id: 1, value: remainingCalories, label: '남은 칼로리' },
-                    ],
-                    innerRadius: 50,
-                    outerRadius: Math.min(dimensions.width, dimensions.height) / 2 - 20,
-                    paddingAngle: 5,
-                    cornerRadius: 5,
-                    startAngle: -90,
-                    endAngle: 270,
-                    cx: dimensions.width / 2,
-                    cy: dimensions.height / 2,
-                  },
-                ]}
+                series={[{
+                  data: [
+                    { id: 0, value: burnedCalories, label: '소모한 칼로리' },
+                    { id: 1, value: remainingCalories, label: '남은 칼로리' },
+                  ],
+                  innerRadius: 50,
+                  outerRadius: Math.min(dimensions.width, dimensions.height) / 2 - 20,
+                  paddingAngle: 5,
+                  cornerRadius: 5,
+                  startAngle: -90,
+                  endAngle: 270,
+                  cx: dimensions.width / 2,
+                  cy: dimensions.height / 2,
+                }]}
                 width={dimensions.width}
                 height={dimensions.height}
             />

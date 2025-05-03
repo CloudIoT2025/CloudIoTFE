@@ -1,8 +1,10 @@
 import { Box, Typography, Button, Paper } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-const ResultPage = ({ similarity = 85, burned = 450, goal = 600 }) => {
+const ResultPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { burned = 0, goal = 0 } = location.state || {};
 
   return (
       <Paper
@@ -23,17 +25,8 @@ const ResultPage = ({ similarity = 85, burned = 450, goal = 600 }) => {
         </Typography>
 
         <Box my={4}>
-          <Typography variant="h6" gutterBottom>
-            운동 유사율
-          </Typography>
           <Typography variant="body1">
-            {similarity}% 일치
-          </Typography>
-        </Box>
-
-        <Box my={4}>
-          <Typography variant="body1">
-            이번 운동으로 소비한 칼로리: {burned}kcal / 목표 칼로리: {goal}kcal
+            이번 운동으로 소비한 칼로리: {burned} kcal / 목표 칼로리: {goal} kcal
           </Typography>
         </Box>
 
