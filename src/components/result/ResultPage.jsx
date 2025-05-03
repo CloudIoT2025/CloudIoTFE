@@ -34,7 +34,7 @@ const ResultPage = () => {
           <Button variant="contained" color="primary" onClick={() => navigate('/')}>
             메인 페이지로 돌아가기
           </Button>
-          <Button variant="outlined" onClick={() => navigate('/exercise')}>
+          <Button variant="outlined" onClick={() => navigate('/select')}>
             운동 페이지로 돌아가기
           </Button>
         </Box>

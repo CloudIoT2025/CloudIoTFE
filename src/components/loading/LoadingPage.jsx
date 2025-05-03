@@ -20,10 +20,10 @@ const LoadingPage = () => {
         params: { videoId },
       });
 
-      const { score: similarity, calroies: burned, goal } = response.data;
+      const { burned: burned, goal } = response.data;
 
       // 결과 페이지로 이동하면서 데이터 전달
-      navigate('/result', { state: { similarity, burned, goal } });
+      navigate('/result', { state: { burned, goal } });
     } catch (err) {
       console.error(err);
       setError('운동 결과를 불러오는 데 실패했습니다. 다시 시도해주세요.');
