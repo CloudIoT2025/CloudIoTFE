@@ -9,9 +9,16 @@ const RaspberryCodeModal = ({ onClose }) => {
 
   const select = async () => {
     try {
-      const response = await axiosInstance.post("/api/user/rsp/validate", { code }); // POST 요청
+      const userId = localStorage.getItem('userId');
+      const response = await axiosInstance.post(
+        '/api/user/rsp/validate',
+        {
+          code,
+        },
+        { headers: { 'x-user-id': userId } } // user id
+      ); // POST 요청
       if (response.data.valid) {
-        localStorage.setItem("RspId", response.data.rspId)
+        localStorage.setItem('rspId', response.data.rspId);
         navigate('/select');
       } else {
         alert("유효하지 않은 코드입니다.");

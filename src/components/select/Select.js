@@ -3,13 +3,14 @@ import { Button } from "@mui/material";
 import Navbar from "../nav/Navbar";
 import Content from "../common/Content";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../api/api";
+import { useEffect, useState } from 'react';
 
 const Select = () => {
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleExerciseStart = async (videoId) => {
-    const rspId = localStorage.getItem("RspId");
+  const handleExerciseStart = async videoId => {
+    const rspId = localStorage.getItem('rspId');
 
     if (!rspId) {
       alert("라즈베리 고유 코드를 먼저 입력해주세요.");
@@ -17,13 +18,8 @@ const Select = () => {
     }
 
     try {
-      await axiosInstance.post("/api/exercise/start", {
-        videoId,
-        rspId,
-      });
-
-      localStorage.removeItem("RspId");
-      navigate("/youtube", {
+      // localStorage.removeItem('RspId');
+      navigate('/youtube', {
         state: { videoId },
       });
     } catch (err) {
@@ -32,9 +28,19 @@ const Select = () => {
     }
   };
 
+  useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    const accessToken = localStorage.getItem('accessToken');
+    if (userId && accessToken) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [isLoggedIn]);
+
   return (
       <>
-        <Navbar />
+        <Navbar isLoggedIn={isLoggedIn} />
         <Content>
           <div className="select-grid">
             <Button

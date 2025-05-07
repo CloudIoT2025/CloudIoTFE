@@ -3,15 +3,10 @@ import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import axiosInstance from "../api/api";
+import LoginButton from '../buttons/LoginButton';
 
-const Navbar = () => {
+const Navbar = ({ isLoggedIn }) => {
   const navigate = useNavigate();
-
-  const handleOAuthLogin = () => {
-    console.log('OAuth 로그인 시도 (더미)');
-    // window.location.href = 'http://ec2-43-201-68-3.ap-northeast-2.compute.amazonaws.com:3000/login';
-    window.location.href = 'http://localhost:8080/login';
-  };
 
   return (
       <AppBar position="static" className="navbar">
@@ -27,12 +22,10 @@ const Navbar = () => {
 
              {/*<Button color="inherit">Dashboard</Button> */}
 
-            <Button color="inherit" onClick={handleOAuthLogin}>
-              Login
-            </Button>
-          </div>
-        </Toolbar>
-      </AppBar>
+          <LoginButton isLoggedIn={isLoggedIn} />
+        </div>
+      </Toolbar>
+    </AppBar>
   );
 };
 
