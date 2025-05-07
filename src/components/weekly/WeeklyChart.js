@@ -58,7 +58,7 @@ const DailyCaloriesChart = () => {
 
             <BarChart
                 dataset={weeklyData}
-                xAxis={[{ scaleType: 'band', dataKey: 'createdAt' }]}
+                xAxis={[{ scaleType: 'band', dataKey: 'date' }]}
                 series={[
                   {
                     dataKey: 'caloriesBurnedOutside',
