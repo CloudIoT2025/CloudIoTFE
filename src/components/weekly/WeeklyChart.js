@@ -16,7 +16,14 @@ const DailyCaloriesChart = () => {
       const response = await axiosInstance.get('/api/results/weekly', {
         headers: { 'x-user-id': localStorage.getItem('userId') },
       });
-      setWeeklyData(response.data);
+
+      const sanitizedData = response.data.map(item => ({
+        ...item,
+        caloriesBurnedOutside: item.caloriesBurnedOutside ?? 0,
+        caloriesBurnedWithUs: item.caloriesBurnedWithUs ?? 0,
+      }));
+
+      setWeeklyData(sanitizedData);
       setIsLoaded(true);
     } catch (error) {
       console.error('Error fetching weekly data:', error);
