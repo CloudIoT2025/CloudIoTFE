@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-  Card, CardContent, Typography, TextField, Button, Box
-} from '@mui/material';
+import { Card, CardContent, Typography } from '@mui/material';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { blue, orange } from '@mui/material/colors';
 import Navbar from '../nav/Navbar';

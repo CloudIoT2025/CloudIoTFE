@@ -47,6 +47,13 @@ const Select = () => {
                 className="select-box ex1"
                 variant="outlined"
                 onClick={() => handleExerciseStart("W-L_V7S5Zq8")}
+                style={{
+                  backgroundImage: `url(https://img.youtube.com/vi/W-L_V7S5Zq8/hqdefault.jpg)`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  color: 'white',
+                  fontWeight: 'bold'
+                }}
             >
               ex1
             </Button>
@@ -54,6 +61,13 @@ const Select = () => {
                 className="select-box ex1"
                 variant="outlined"
                 onClick={() => handleExerciseStart("HK5VQq836Tw")}
+                style={{
+                  backgroundImage: `url(https://img.youtube.com/vi/HK5VQq836Tw/hqdefault.jpg)`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  color: 'white',
+                  fontWeight: 'bold'
+                }}
             >
               ex2
             </Button>
@@ -61,6 +75,13 @@ const Select = () => {
                 className="select-box ex1"
                 variant="outlined"
                 onClick={() => handleExerciseStart("iD0L3TR8Uh8")}
+                style={{
+                  backgroundImage: `url(https://img.youtube.com/vi/iD0L3TR8Uh8/hqdefault.jpg)`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  color: 'white',
+                  fontWeight: 'bold'
+                }}
             >
               ex3
             </Button>
