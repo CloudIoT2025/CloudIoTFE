@@ -9,6 +9,11 @@ const LoadingPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [success, setSuccess] = useState(false);
+
+  const [burnedCalories, setBurnedCalories] = useState(0);
+  const [goalCalories, setGoalCalories] = useState(0);
+
   const videoId = location.state?.videoId || 1; // default videoId
 
   const fetchResult = async () => {
@@ -16,21 +21,30 @@ const LoadingPage = () => {
       setError(null);
       setLoading(true);
 
-      const response = await axiosInstance.get('/api/exercise/end', {
-        params: { videoId },
-      });
-
-      const { burned: burned, goal } = response.data;
-
-      // 결과 페이지로 이동하면서 데이터 전달
-      navigate('/result', { state: { burned, goal } });
+      const res = await axiosInstance.get(
+        `/api/exercise/end?videoId=${videoId}&rspId=${localStorage.getItem(
+          'rspId'
+        )}`,
+        { headers: { 'x-user-id': localStorage.getItem('userId') } }
+      );
+      const { burned, goal } = res.data;
+      setBurnedCalories(burned);
+      setGoalCalories(goal);
+      setSuccess(true);
     } catch (err) {
       console.error(err);
       setError('운동 결과를 불러오는 데 실패했습니다. 다시 시도해주세요.');
-    } finally {
-      setLoading(false);
     }
-  };
+
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    if (success) {
+      // 결과 페이지로 이동하면서 데이터 전달
+      navigate('/result', { state: { burnedCalories, goalCalories } });
+    }
+  }, [success, burnedCalories, goalCalories, navigate]);
 
   useEffect(() => {
     fetchResult();
@@ -71,7 +85,7 @@ const LoadingPage = () => {
     );
   }
 
-  return null;
+  return <></>;
 };
 
 export default LoadingPage;

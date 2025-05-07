@@ -2,42 +2,41 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const axiosInstance = axios.create({
-  // baseURL: 'http://ec2-43-201-68-3.ap-northeast-2.compute.amazonaws.com:8080', // 백엔드 엔드포인트 기본 URL
-  baseURL: 'http://localhost:8080', // 백엔드 엔드포인트 기본 URL
-  withCredentials: true, // 쿠키 전송을 허용
+  baseURL: 'https://playcation.store', // 백엔드 엔드포인트 기본 URL
 });
 
 let refreshSubscribers = [];
 
 // 요청 재시도 로직
-const addSubscriber = (callback) => {
+const addSubscriber = callback => {
   refreshSubscribers.push(callback);
 };
 
-const onRefreshed = (newToken) => {
-  refreshSubscribers.forEach((callback) => callback(newToken));
+const onRefreshed = newToken => {
+  refreshSubscribers.forEach(callback => callback(newToken));
   refreshSubscribers = [];
 };
 
 // 요청 인터셉터
 axiosInstance.interceptors.request.use(
-    (config) => {
-      console.log('Request Interceptor Triggered:', config);
-      const accessToken = localStorage.getItem('Authorization');
-      if (accessToken) {
-        config.headers.Authorization = `Bearer ${accessToken}`;
-      }
-      return config;
-    },
-    (error) => Promise.reject(error)
+  config => {
+    console.log('Request Interceptor Triggered:', config);
+    const accessToken = localStorage.getItem('Authorization');
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+    return config;
+  },
+  error => Promise.reject(error)
 );
 
 // 응답 인터셉터
 axiosInstance.interceptors.response.use(
-    (response) => {
+    response => {
       console.log('Response Interceptor Success:', response);
-      return response;},
-    async (error) => {
+      return response;
+      },
+    async error => {
       const originalRequest = error.config;
 
       // 토큰 만료 처리
@@ -68,16 +67,16 @@ axiosInstance.interceptors.response.use(
         }
 
         // 기존 요청 재시도
-        return new Promise((resolve) => {
-          addSubscriber((newToken) => {
+        return new Promise(resolve => {
+          addSubscriber(newToken => {
             originalRequest.headers.Authorization = `Bearer ${newToken}`;
             resolve(axiosInstance(originalRequest));
           });
         });
       }
 
-      return Promise.reject(error);
-    }
+    return Promise.reject(error);
+  }
 );
 
 export default axiosInstance;
