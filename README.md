@@ -1,71 +1,73 @@
-# Getting Started with Create React App
+# 📘 CloudIoTFE
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> 스마트 헬스케어 IoT 시스템의 프론트엔드 웹 애플리케이션  
+> Fitbit 및 Raspberry Pi 장비로부터 수집한 데이터를 시각화하고, 운동 관련 유튜브 영상을 자동 재생하는 기능을 제공합니다.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🧩 프로젝트 개요
 
-### `npm start`
+CloudIoT 과제의 일환으로 개발된 본 프로젝트는 사용자의 건강 및 운동 데이터를 시각화하고, 운동 종료 후 분석 결과 및 피드백을 제공합니다.  
+또한 운동 중 도움이 되는 유튜브 가이드 영상을 자동 재생하여 사용자에게 직관적인 UX를 제공하는 것이 특징입니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🧑‍💻 개발 기여
 
-### `npm test`
+| 이름 | 역할 |
+|------|------|
+| 이서준 | 프론트엔드 전체 개발, Fitbit API 연동, 로딩/결과 UX 구현, 리팩토링 및 상태관리 구성 |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 📁 디렉토리 구조
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+src/
+├── App.js                 # 메인 앱 컴포넌트
+├── index.js              # React 앱 진입점
+├── components/           # 세부 컴포넌트들 (아래 참고)
+├── store/                # Redux 상태관리
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🚀 주요 기능
 
-### `npm run eject`
+| 기능 | 설명 |
+|------|------|
+| Fitbit 연동 | 사용자 건강 데이터를 OAuth2 인증을 통해 가져옵니다. |
+| Raspberry Pi 연동 | IoT 운동 장치와 통신하여 운동 시작/종료 트리거를 제어합니다. |
+| 운동 결과 시각화 | 운동 시간, 소모 칼로리, 목표 달성률 등을 시각화합니다. |
+| 유튜브 영상 재생 | 운동 동작을 안내하는 유튜브 영상을 자동으로 재생합니다. |
+| 목표 설정 및 수정 | 사용자가 원하는 칼로리 소모 목표를 설정하고 반영합니다. |
+| 예외처리 | 데이터 누락 시 안내 모달 표시 등 사용자 친화적인 UX 제공 |
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🧩 주요 컴포넌트 및 역할
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+| 분류 | 파일 | 설명 |
+|------|------|------|
+| 🏁 운동 제어 | `StartBtn.js`, `Exercise.js` | 운동 시작 버튼 및 라즈베리파이 연동 동작 처리 |
+| 📊 운동 결과 분석 | `ResultPage.js` | 결과 페이지 - 운동 점수, 칼로리, 목표 달성률 시각화 |
+| 📈 통계 시각화 | `Dashboard.js`, `TargetBoard.js`, `CaloriesPieChart.js`, `WeeklyChart.js` | 누적 칼로리, 주간 통계 등 시각화 제공 |
+| 🎯 목표 설정 | `WeeklyGoalForm.js` | 주간 목표 칼로리 설정 및 입력 기능 |
+| 🔐 로그인 흐름 | `LoginButton.js`, `LoginCompleted.js` | Fitbit OAuth 로그인 버튼 및 완료 안내 |
+| 🎬 유튜브 영상 | `Content.js` 등 | 운동 가이드용 영상 삽입 (iframe 혹은 ReactPlayer 사용 예상) |
+| 💬 장치 인증 | `RaspberryCodeModal.js` | 라즈베리파이 장치 등록용 코드 입력 모달 |
+| 🧭 네비게이션 | `Navbar.js`, `Main.js` | 페이지 이동 및 메인 구조 컴포넌트 구성 |
+| 📑 공통 | `Select.js` 등 | 사용자 선택 UI 제공 |
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 🛠 사용 기술 스택
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# CloudIoTFE
+| 영역 | 기술 |
+|------|------|
+| 프레임워크 | React |
+| 상태관리 | Redux |
+| 스타일링 | CSS |
+| 통신 | REST API, fetch |
+| 영상 처리 | iframe |
+| 배포 | GitHub Action, S3, Cloud Front |
